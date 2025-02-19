@@ -1,3 +1,3 @@
 <template>
-	<UApp><NuxtPage /></UApp>
+  <UApp><NuxtPage /></UApp>
 </template>

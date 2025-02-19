@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui';
+const { fetch: refreshSession } = useUserSession();
 
 const state = reactive({
   email: '',
@@ -7,14 +7,28 @@ const state = reactive({
 });
 
 const toast = useToast();
-async function onSubmit(event: FormSubmitEvent) {
-  toast.add({
-    title: 'Success',
-    description: 'The form has been submitted.',
-    color: 'success',
-  });
-  console.log(event.data);
-}
+const onSubmit = async () => {
+  $fetch('/api/login', {
+    method: 'POST',
+    body: state,
+  })
+    .then(async () => {
+      // Refresh the session on client-side and redirect to the home page
+      await refreshSession();
+      toast.add({
+        title: 'Success',
+        description: 'You are authorized',
+        color: 'success',
+      });
+    })
+    .catch(() =>
+      toast.add({
+        title: 'Error',
+        description: 'Bad credentials',
+        color: 'error',
+      }),
+    );
+};
 </script>
 
 <template>

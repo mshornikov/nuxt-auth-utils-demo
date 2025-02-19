@@ -1,75 +1,35 @@
-# Nuxt Minimal Starter
+# Nuxt Auth Utils Demo
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[Nuxt 3](https://nuxt.com/docs/getting-started/installation) + [Nuxt Auth Utils](https://nuxt.com/modules/auth-utils) + [Nuxt UI](https://ui3.nuxt.dev/getting-started) simple auth demo
 
 ## Setup
 
 Make sure to install dependencies:
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```sh
+pnpm i
 ```
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on [`http://localhost:3000`](http://localhost:3000):
 
-```bash
-# npm
-npm run dev
-
-# pnpm
+```sh
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
 
 Build the application for production:
 
-```bash
-# npm
-npm run build
-
-# pnpm
+```sh
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
-```bash
-# npm
-npm run preview
-
-# pnpm
+```sh
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

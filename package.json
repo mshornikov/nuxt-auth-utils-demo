@@ -8,6 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
   },
   "devEngines": {
@@ -25,6 +27,14 @@
     "vue": "latest",
     "vue-router": "latest"
   },
+  "devDependencies": {
+    "@nuxt/eslint": "1.1.0",
+    "eslint": "^9.20.1",
+    "jiti": "^2.4.2",
+    "prettier": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript": "^5.7.3"
+  },
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -32,9 +42,5 @@
       "esbuild",
       "vue-demi"
     ]
-  },
-  "devDependencies": {
-    "prettier": "^3.5.1",
-    "prettier-plugin-tailwindcss": "^0.6.11"
   }
 }

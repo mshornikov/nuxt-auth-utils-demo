@@ -22,6 +22,9 @@ pnpm dev
 
 ## Production
 
+> [!IMPORTANT]
+> YOU SHOULD HAVE [`.env`](.env) file with NUXT_SESSION_PASSWORD variable
+
 Build the application for production:
 
 ```sh

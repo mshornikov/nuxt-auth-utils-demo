@@ -5,17 +5,17 @@ definePageMeta({
 
 const { user, clear: clearSession } = useUserSession();
 
-async function logout() {
+const logout = async () => {
   await clearSession();
   await navigateTo('/login');
-}
+};
 </script>
 
 <template>
   <UContainer class="flex h-screen flex-col justify-center">
     <UCard>
       <h1 class="mb-2 text-xl font-semibold text-pretty">
-        Welcome {{ user.name }}
+        Welcome {{ user?.name }}
       </h1>
       <UButton @click="logout">Logout</UButton>
     </UCard>

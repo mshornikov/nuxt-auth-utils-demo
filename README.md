@@ -2,6 +2,8 @@
 
 [Nuxt 3](https://nuxt.com/docs/getting-started/installation) + [Nuxt Auth Utils](https://nuxt.com/modules/auth-utils) + [NuxtUI](https://ui3.nuxt.dev/getting-started) simple auth demo
 
+Based on this [recipe](https://nuxt.com/docs/guide/recipes/sessions-and-authentication)
+
 ## Setup
 
 Make sure to install dependencies:

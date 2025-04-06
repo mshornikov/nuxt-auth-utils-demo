@@ -18,7 +18,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (rows[0].password !== password) {
+  const isPasswordValid = await verifyPassword(
+    rows[0].password as string,
+    password,
+  );
+
+  if (!isPasswordValid) {
     throw createError({
       statusCode: 401,
       message: 'Wrong password',

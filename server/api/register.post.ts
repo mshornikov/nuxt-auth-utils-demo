@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
-  await db.sql`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)`;
+  await db.sql`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, password TEXT)`;
 
   const { rows } = await db.sql`SELECT * FROM users WHERE email = ${email}`;
 
@@ -21,5 +21,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await db.sql`INSERT INTO users (email, password) VALUES (${email}, ${password})`;
+  const hashedPassword = await hashPassword(password);
+
+  await db.sql`INSERT INTO users (email, password) VALUES (${email}, ${hashedPassword})`;
 });

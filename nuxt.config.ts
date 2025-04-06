@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
+  future: {
+    compatibilityVersion: 4,
+  },
   modules: ['@nuxt/ui', '@nuxt/eslint', 'nuxt-auth-utils'],
   css: ['~/assets/css/main.css'],
   nitro: {
@@ -9,4 +10,5 @@ export default defineNuxtConfig({
       database: true,
     },
   },
+  compatibilityDate: '2024-11-01',
 });

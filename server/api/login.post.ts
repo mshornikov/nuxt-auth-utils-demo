@@ -14,16 +14,17 @@ export default defineEventHandler(async (event) => {
   const user = await db
     .select()
     .from(tables.users)
-    .where(eq(tables.users.email, email));
+    .where(eq(tables.users.email, email))
+    .get();
 
-  if (user.length === 0) {
+  if (!user) {
     throw createError({
       statusCode: 401,
       message: "User doesn't exist",
     });
   }
 
-  const isPasswordValid = await verifyPassword(user[0].password, password);
+  const isPasswordValid = await verifyPassword(user.password, password);
 
   if (!isPasswordValid) {
     throw createError({
@@ -35,6 +36,7 @@ export default defineEventHandler(async (event) => {
   await setUserSession(event, {
     user: {
       name: email,
+      role: user.role,
     },
   });
 });

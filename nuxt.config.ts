@@ -10,10 +10,5 @@ export default defineNuxtConfig({
     'nuxt-authorization',
   ],
   css: ['~/assets/css/main.css'],
-  nitro: {
-    experimental: {
-      database: true,
-    },
-  },
   compatibilityDate: '2024-11-01',
 });

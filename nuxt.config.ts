@@ -4,4 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui', '@nuxt/eslint', 'nuxt-auth-utils'],
   css: ['~/assets/css/main.css'],
+  nitro: {
+    experimental: {
+      database: true,
+    },
+  },
 });

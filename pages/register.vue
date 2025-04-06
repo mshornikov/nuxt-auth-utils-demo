@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { fetch: refreshSession } = useUserSession();
-
 const state = reactive({
   email: '',
   password: '',
@@ -8,19 +6,18 @@ const state = reactive({
 
 const toast = useToast();
 const onSubmit = async () => {
-  $fetch('/api/login', {
+  $fetch('/api/register', {
     method: 'POST',
     body: state,
     onResponse: async ({ response: { ok } }) => {
       if (ok) {
         toast.add({
           title: 'Success',
-          description: 'You are authorized',
+          description: 'You are registered',
           color: 'success',
         });
 
-        await refreshSession();
-        await navigateTo('/');
+        await navigateTo('/login');
       }
     },
     onResponseError: ({ response: { _data } }) => {
@@ -38,7 +35,7 @@ const onSubmit = async () => {
   <UContainer class="flex h-screen flex-col items-center justify-center">
     <UCard class="min-w-sm">
       <template #header>
-        <h1 class="text-xl font-semibold text-pretty">Login</h1>
+        <h1 class="text-xl font-semibold text-pretty">Register</h1>
       </template>
 
       <UForm :state="state" class="space-y-4" @submit="onSubmit">

@@ -6,20 +6,28 @@ const bodySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  const db = useDatabase();
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
-  if (email === 'admin@admin.com' && password === 'iamtheadmin') {
-    // set the user session in the cookie
-    // this server util is auto-imported by the auth-utils module
-    await setUserSession(event, {
-      user: {
-        name: 'John Doe',
-      },
+  const { rows } = await db.sql`SELECT * FROM users WHERE email = ${email}`;
+
+  if (!rows || rows.length === 0) {
+    throw createError({
+      statusCode: 401,
+      message: "User doesn't exist",
     });
-    return {};
   }
-  throw createError({
-    statusCode: 401,
-    message: 'Bad credentials',
+
+  if (rows[0].password !== password) {
+    throw createError({
+      statusCode: 401,
+      message: 'Wrong password',
+    });
+  }
+
+  await setUserSession(event, {
+    user: {
+      name: email,
+    },
   });
 });

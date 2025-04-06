@@ -15,6 +15,8 @@ const onSubmit = async () => {
     .then(async () => {
       // Refresh the session on client-side and redirect to the home page
       await refreshSession();
+      await navigateTo('/');
+
       toast.add({
         title: 'Success',
         description: 'You are authorized',

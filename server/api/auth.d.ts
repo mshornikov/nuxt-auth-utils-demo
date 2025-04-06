@@ -1,8 +1,6 @@
-// auth.d.ts
 declare module '#auth-utils' {
-  interface User {
-    name: string;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  interface User extends UserData {}
 }
 
 export {};

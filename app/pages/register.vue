@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['new-users-only'],
+  middleware: ['unauthenticated'],
 });
 
 const state = reactive({

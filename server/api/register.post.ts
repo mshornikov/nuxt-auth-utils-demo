@@ -7,6 +7,8 @@ const bodySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  await authorize(event, register);
+
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
   const users = await db

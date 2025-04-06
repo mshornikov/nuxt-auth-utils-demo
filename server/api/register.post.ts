@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 const bodySchema = z.object({
@@ -6,15 +7,14 @@ const bodySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
-  const db = useDatabase();
-
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
-  await db.sql`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, password TEXT)`;
+  const users = await db
+    .select()
+    .from(tables.users)
+    .where(eq(tables.users.email, email));
 
-  const { rows } = await db.sql`SELECT * FROM users WHERE email = ${email}`;
-
-  if (rows && rows.length > 0) {
+  if (users.length > 0) {
     throw createError({
       statusCode: 409,
       message: 'User already exists with this email',
@@ -23,5 +23,5 @@ export default defineEventHandler(async (event) => {
 
   const hashedPassword = await hashPassword(password);
 
-  await db.sql`INSERT INTO users (email, password) VALUES (${email}, ${hashedPassword})`;
+  await db.insert(tables.users).values({ email, password: hashedPassword });
 });

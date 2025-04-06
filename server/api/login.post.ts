@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 const bodySchema = z.object({
@@ -6,22 +7,21 @@ const bodySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
-  const db = useDatabase();
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
-  const { rows } = await db.sql`SELECT * FROM users WHERE email = ${email}`;
+  const user = await db
+    .select()
+    .from(tables.users)
+    .where(eq(tables.users.email, email));
 
-  if (!rows || rows.length === 0) {
+  if (user.length === 0) {
     throw createError({
       statusCode: 401,
       message: "User doesn't exist",
     });
   }
 
-  const isPasswordValid = await verifyPassword(
-    rows[0].password as string,
-    password,
-  );
+  const isPasswordValid = await verifyPassword(user[0].password, password);
 
   if (!isPasswordValid) {
     throw createError({
